@@ -29,4 +29,11 @@ int main() {
 	std::cout << (s2 + s3) << std::endl;
 
 	std::cin.get();
+
+	std::cout << "Move constructor tests" << std::endl;
+
+	String s = String("ab").concat("cd").concat("ef"); 
+	cout << s << endl;
+
+	std::cin.get();
 }

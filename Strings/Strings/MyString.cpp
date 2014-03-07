@@ -11,7 +11,7 @@ void String::copyChar(const char* source, char* dest, size_t start, size_t len) 
 
 void String::storeDigits(char* store, size_t pos, int number)
 {
-	if (number > 10)
+	if (number >= 10)
 		storeDigits(store, pos - 1, number / 10);
 
 	store[--pos] = (number % 10) + 48;
@@ -25,9 +25,25 @@ String::String()
 
 String::String(const String& s)
 {
+	std::cout << "Copy constructor called for string " << s << std::endl;
+
 	m_string = s.m_string;
 	m_start = s.m_start;
 	m_len = s.m_len;
+}
+
+String::String(String&& s)
+{
+	std::cout << "Move constructor called for string " << s << std::endl;
+
+	m_string = s.m_string;
+	s.m_string = nullptr;
+
+	m_len = s.m_len;
+	s.m_len = 0;
+
+	m_start = s.m_start;
+	s.m_start = 0;
 }
 
 String::String(const char* s)
@@ -50,7 +66,7 @@ String::~String()
 
 char String::charAt(size_t index) const
 {
-	if (index < 0 || index >= m_len)
+	if (index >= m_len)
 		throw new exception("Invalid index");
 
 	return m_string.get()[m_start + index];
@@ -65,7 +81,7 @@ int String::compareTo(const String& s) const
 	{
 		if (pos2 >= s.length()) return 1;
 		if (s.charAt(pos2) > charAt(pos1)) return -1;
-		if (s.charAt(pos1) > charAt(pos2)) return 1;
+		if (charAt(pos1) > s.charAt(pos2)) return 1;
 
 		++pos1;
 		++pos2;
@@ -93,7 +109,7 @@ String String::substring(size_t beg, size_t end) const
 	return substr;
 }
 
-String String::concat(char c) const 
+String String::concat(char c) const
 {
 	String newStr = String(*this);
 	newStr.m_len++;
@@ -105,7 +121,7 @@ String String::concat(char c) const
 	return newStr;
 }
 
-String String::concat(const String& s) const 
+String String::concat(const String& s) const
 {
 	String newStr = String(*this);
 	newStr.m_len += s.length();
@@ -117,12 +133,12 @@ String String::concat(const String& s) const
 }
 
 unique_ptr<char[]> String::toCString() const {
-	unique_ptr<char[]> r = unique_ptr<char[]>(new char[m_len + 1]); 
+	unique_ptr<char[]> r = unique_ptr<char[]>(new char[m_len + 1]);
 	const char * const tc = m_string.get();
 
-	for (size_t i = 0; i < m_len; ++i) 
+	for (size_t i = 0; i < m_len; ++i)
 		r[i] = tc[m_start + i];
-	
+
 	r[m_len] = '\0';
 	return move(r);
 }
@@ -130,7 +146,7 @@ unique_ptr<char[]> String::toCString() const {
 String String::valueOf(int i)
 {
 	// count digits
-	size_t digits = i < 0 ? 1 : 0; 
+	size_t digits = i < 0 ? 1 : 0;
 	int number = i;
 
 	do { number /= 10; digits++; } while (number != 0);

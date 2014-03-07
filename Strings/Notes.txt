@@ -1,0 +1,35 @@
+﻿/* ------------------------------------------------------------------------- */
+/* Übung 1                                                                   */
+/*                                                                           */
+/* Christian Güdel                                                           */
+/* März 2014                                                                 */
+/* ------------------------------------------------------------------------- */
+
+Aufgaben:
+
+3. Vorschlag ausarbeiten, wie der Einsatz des Zuweisungsoperators unterbunden 
+   werden kann.
+
+	Entweder kann der Zuweisungsoperator gelöscht werden:
+		
+		String operator=(const String& s) = delete;
+
+	oder der Zuweisungsoperator kann im Header-File unter den privaten 
+	Methoden deklariert werden.
+
+4. Verschiebekonstruktor für die String-Klasse entwickeln und Unterschied 
+   dokumentieren.
+
+	Output ohne Move-Semantik (mit Output im Copy-Constructor):
+
+		Copy constructor called for string ab
+		Copy constructor called for string abcd
+		Copy constructor called for string abcd
+		Copy constructor called for string abcdef
+
+	Mit Move-Semantik:
+
+		Copy constructor called for string ab
+		Move constructor called for string abcd
+		Copy constructor called for string abcd
+		Move constructor called for string abcdef
