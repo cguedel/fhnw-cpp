@@ -10,7 +10,10 @@ class String final {
 	size_t m_len;
 	size_t m_start;
 
-	void copyChar(const char* source, char* dest, size_t len) const;
+	char* str;
+
+	void copyChar(const char* source, char* dest, size_t start, size_t len) const;
+	static void storeDigits(char* store, size_t pos, int number);
 
 public:
 	String();
@@ -27,11 +30,12 @@ public:
 	unique_ptr<char[]> toCString() const;
 	
 	bool operator==(const String& s) const { return compareTo(s) == 0; }
+	String operator+(const String& s) const { return concat(s); } // bonus
 	
 	friend ostream& operator<<(ostream& os, const String& s) {
 		const size_t end = s.m_start + s.m_len;
 		const char* const sc = s.m_string.get();
-		for (size_t i = s.m_start; i < end; i++)
+		for (size_t i = s.m_start; i < end; ++i)
 			os << sc[i];
 		return os;
 	}
