@@ -10,7 +10,6 @@ class String final {
 	size_t m_len;
 	size_t m_start;
 
-	void copyChar(const char* source, char* dest, size_t start, size_t len) const;
 	static void storeDigits(char* store, size_t pos, int number);
 
 	String operator=(const String& s);

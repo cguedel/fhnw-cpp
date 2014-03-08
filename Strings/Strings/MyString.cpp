@@ -3,18 +3,12 @@
 
 using namespace std;
 
-void String::copyChar(const char* source, char* dest, size_t start, size_t len) const
-{
-	for (size_t i = 0; i < len; ++i)
-		dest[start + i] = source[i];
-}
-
 void String::storeDigits(char* store, size_t pos, int number)
 {
 	if (number >= 10)
 		storeDigits(store, pos - 1, number / 10);
 
-	store[--pos] = (number % 10) + 48;
+	store[--pos] = (number % 10) + '0';
 }
 
 String::String()
@@ -25,8 +19,6 @@ String::String()
 
 String::String(const String& s)
 {
-	std::cout << "Copy constructor called for string " << s << std::endl;
-
 	m_string = s.m_string;
 	m_start = s.m_start;
 	m_len = s.m_len;
@@ -34,8 +26,6 @@ String::String(const String& s)
 
 String::String(String&& s)
 {
-	std::cout << "Move constructor called for string " << s << std::endl;
-
 	m_string = s.m_string;
 	s.m_string = nullptr;
 
@@ -56,7 +46,7 @@ String::String(const char* s)
 	if (m_len > 0)
 	{
 		m_string = shared_ptr<char>(unique_ptr<char[]>(new char[m_len]));
-		copyChar(s, m_string.get(), 0, m_len);
+		memcpy(m_string.get(), s, m_len);
 	}
 }
 
@@ -115,7 +105,7 @@ String String::concat(char c) const
 	newStr.m_len++;
 
 	newStr.m_string = shared_ptr<char>(unique_ptr<char[]>(new char[newStr.m_len]));
-	copyChar(m_string.get(), newStr.m_string.get(), 0, m_len);
+	memcpy(newStr.m_string.get(), m_string.get(), m_len);
 	newStr.m_string.get()[newStr.m_len - 1] = c;
 
 	return newStr;
@@ -126,8 +116,8 @@ String String::concat(const String& s) const
 	String newStr = String(*this);
 	newStr.m_len += s.length();
 	newStr.m_string = shared_ptr<char>(unique_ptr<char[]>(new char[newStr.m_len]));
-	copyChar(m_string.get(), newStr.m_string.get(), 0, m_len);
-	copyChar(s.m_string.get(), newStr.m_string.get(), m_len, s.m_len);
+	memcpy(newStr.m_string.get(), m_string.get(), m_len);
+	memcpy(newStr.m_string.get() + m_len, s.m_string.get(), s.m_len);
 
 	return newStr;
 }
@@ -158,7 +148,7 @@ String String::valueOf(int i)
 	if (i < 0)
 	{
 		str[0] = '-';
-		i = i * -1;
+		i *= -1;
 	}
 
 	storeDigits(str, digits, i);
