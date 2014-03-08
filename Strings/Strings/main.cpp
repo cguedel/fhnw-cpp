@@ -35,5 +35,9 @@ int main() {
 	String s = String("ab").concat("cd").concat("ef"); 
 	cout << s << endl;
 
+	std::cout << String("12345").substring(0, 5) << std::endl;
+	std::cout << String("12345").substring(1, 5) << std::endl;
+	std::cout << String("12345").substring(5, 5) << std::endl;
+
 	std::cin.get();
 }

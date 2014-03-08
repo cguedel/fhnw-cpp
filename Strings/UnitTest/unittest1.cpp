@@ -64,6 +64,15 @@ namespace UnitTest
 			catch (exception*)
 			{
 			}
+
+			try {
+				s.charAt(1);
+
+				Assert::Fail();
+			}
+			catch (exception*)
+			{
+			}
 		}
 
 		TEST_METHOD(Concat)
@@ -89,6 +98,14 @@ namespace UnitTest
 			Assert::IsTrue(String::valueOf(0) == "0");
 			Assert::IsTrue(String::valueOf(1) == "1");
 			Assert::IsTrue(String::valueOf(100) == "100");
+		}
+
+		TEST_METHOD(Substring)
+		{
+			Assert::IsTrue(String("12345").substring(0, 5) == "12345");
+			Assert::IsTrue(String("12345").substring(5, 5) == "");
+			Assert::IsTrue(String("12345").substring(10, 15) == "");
+			Assert::IsTrue(String("12345").substring(15, 3) == "");
 		}
 	};
 }

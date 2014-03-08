@@ -94,7 +94,7 @@ String String::substring(size_t beg, size_t end) const
 
 	String substr = String(*this);
 	substr.m_start = beg;
-	substr.m_len = end - 1;
+	substr.m_len = end - beg;
 
 	return substr;
 }
@@ -125,10 +125,7 @@ String String::concat(const String& s) const
 unique_ptr<char[]> String::toCString() const {
 	unique_ptr<char[]> r = unique_ptr<char[]>(new char[m_len + 1]);
 	const char * const tc = m_string.get();
-
-	for (size_t i = 0; i < m_len; ++i)
-		r[i] = tc[m_start + i];
-
+	memcpy(r.get(), tc + m_start, m_len);
 	r[m_len] = '\0';
 	return move(r);
 }
