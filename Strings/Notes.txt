@@ -27,9 +27,14 @@ Aufgaben:
 		Copy constructor called for string abcd
 		Copy constructor called for string abcdef
 
-	Mit Move-Semantik:
+	Mit Move-Semantik (Output im Copy- und Move-Constructor):
 
 		Copy constructor called for string ab
 		Move constructor called for string abcd
 		Copy constructor called for string abcd
 		Move constructor called for string abcdef
+
+5. Vollständige String-Klasse, Unit-Tests, Unit-Test-Resultate abgeben.
+
+	Unit Tests im Projekt 'UnitTest' in der Solution vorhanden.
+	10/10 Tests sind grün, Code-Coverage für die String-Klasse ist 98.17%.
