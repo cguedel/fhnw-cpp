@@ -11,36 +11,23 @@ void String::storeDigits(char* store, size_t pos, int number)
 	store[--pos] = (number % 10) + '0';
 }
 
-String::String()
+String::String() : m_len(0), m_start(0)
 {
-	m_len = 0;
-	m_start = 0;
 }
 
-String::String(const String& s)
+String::String(const String& s) : m_string(s.m_string), m_start(s.m_start), m_len(s.m_len)
 {
-	m_string = s.m_string;
-	m_start = s.m_start;
-	m_len = s.m_len;
 }
 
-String::String(String&& s)
+String::String(String&& s) : m_string(s.m_string), m_len(s.m_len), m_start(s.m_start)
 {
-	m_string = s.m_string;
 	s.m_string = nullptr;
-
-	m_len = s.m_len;
 	s.m_len = 0;
-
-	m_start = s.m_start;
 	s.m_start = 0;
 }
 
-String::String(const char* s)
+String::String(const char* s) : m_len(0), m_start(0)
 {
-	m_len = 0;
-	m_start = 0;
-
 	while (s[m_len] != '\0') ++m_len;
 
 	if (m_len > 0)
