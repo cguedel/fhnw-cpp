@@ -38,3 +38,10 @@ Aufgaben:
 
 	Unit Tests im Projekt 'UnitTest' in der Solution vorhanden.
 	10/10 Tests sind grün, Code-Coverage für die String-Klasse ist 98.17%.
+
+8. Überarbeitete String-Klasse, Unit-Test-Resultate und Code-Coverage abgeben.
+
+	Unit Tests sind nun 20/20 Tests grün.
+	
+	Code Coverage im File Codecoverage.coveragexml vorhanden.
+	Coverage ist 98.00% für die Klasse String.
