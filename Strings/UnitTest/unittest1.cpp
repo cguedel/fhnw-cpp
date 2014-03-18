@@ -61,7 +61,7 @@ namespace UnitTest
 
 				Assert::Fail();
 			}
-			catch (exception*)
+			catch (std::exception&)
 			{
 			}
 
@@ -70,7 +70,7 @@ namespace UnitTest
 
 				Assert::Fail();
 			}
-			catch (exception*)
+			catch (std::exception&)
 			{
 			}
 		}
@@ -106,6 +106,8 @@ namespace UnitTest
 			Assert::IsTrue(String("12345").substring(5, 5) == "");
 			Assert::IsTrue(String("12345").substring(10, 15) == "");
 			Assert::IsTrue(String("12345").substring(15, 3) == "");
+			Assert::IsTrue(String("12345").substring(0, 1).substring(0, 1) == "1");
+			Assert::IsTrue(String("12345").substring(1, 2).substring(0, 1) == "2");
 		}
 	};
 }

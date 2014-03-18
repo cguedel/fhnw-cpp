@@ -1,7 +1,7 @@
+#pragma once
+
 #include <memory>
 #include <iostream>
-
-#pragma once
 
 using namespace std;
 
@@ -28,6 +28,7 @@ public:
 	size_t length() const;
 	String substring(size_t beg, size_t end) const;
 	unique_ptr<char[]> toCString() const;
+	int toInt() const;
 
 	bool operator==(const String& s) const { return compareTo(s) == 0; }
 	String operator+(const String& s) const { return concat(s); } // bonus
