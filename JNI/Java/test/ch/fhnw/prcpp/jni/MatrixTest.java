@@ -232,3 +232,11 @@ public class MatrixTest {
 // Native took 960 milliseconds
 // Power (51): Java took 367.500000 milliseconds at average
 // Power (51): Cpp took 384.200000 milliseconds at average
+
+// sample output after improvment to native power function (22.04.2014)
+// Multiply: Java took 706.900000 milliseconds at average
+// Multiply: Cpp took 707.500000 milliseconds at average
+// Pure java took 695 milliseconds
+// Native took 709 milliseconds
+// Power (51): Java took 363.800000 milliseconds at average
+// Power (51): Cpp took 356.400000 milliseconds at average

@@ -15,6 +15,7 @@ public class Matrix {
 
 	private native void multiplyC(double[] a, double[] b, double[] r, int i,
 			int j, int k);
+	private native void powerC(double[] a, int i, int k, int power);
 
 	private Matrix(int rows, int columns, boolean initialise, double d,
 			boolean random) {
@@ -133,29 +134,15 @@ public class Matrix {
 	}
 
 	public Matrix power(int k) {
-		return this.power(k, false);
-	}
-
-	public Matrix powerNative(int k) {
-		return this.power(k, true);
-	}
-
-	private Matrix power(int k, boolean cpp) {
 		Matrix r1 = new Matrix(this);
 		Matrix r2 = new Matrix(this);
 		Matrix t = this.transpose();
 
 		for (int i = 0; i < k - 1; ++i) {
 			if (i % 2 == 0) {
-				if (cpp)
-					r1.multiplyNative(t, r2);
-				else
-					r1.multiply(t, r2);
+				r1.multiply(t, r2);
 			} else {
-				if (cpp)
-					r2.multiplyNative(t, r1);
-				else
-					r2.multiply(t, r1);
+				r2.multiply(t, r1);
 			}
 		}
 
@@ -163,7 +150,13 @@ public class Matrix {
 		if ((k - 1) % 2 == 0)
 			r2 = r1;
 
-		return r2;
+		return r2;		
+	}
+
+	public Matrix powerNative(int k) {
+		Matrix r = new Matrix(this);
+		powerC(r.m, r.rows, r.columns, k);
+		return r;
 	}
 
 	@Override
