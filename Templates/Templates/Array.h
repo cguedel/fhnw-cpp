@@ -22,7 +22,7 @@ template<typename T> struct Array
 		return m_data[i];
 	}
 
-	// assignment operator for array (operator) array expressions
+	// assignment operator to evaluate expressions
 	template <typename Left, typename Operator, typename Right> void operator=(Expr<Left, Operator, Right, T> expr) 
 	{
 		for (size_t i = 0; i < m_size; ++i) 
