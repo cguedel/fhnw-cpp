@@ -54,10 +54,18 @@ template <typename Left, typename T> Expr<Left, Plus<T>, Array<T>, T> operator+(
 	return Expr<Left, Plus<T>, Array<T>, T>(a, b);
 }
 
+template<typename Left, typename Right> Expr<Left, Plus<double>, Right, double> operator+(Left a, Right b) {
+	return Expr<Left, Plus<double>, Right, double>(a, b);
+};
+
 template <typename Left, typename T> Expr<Left, Minus<T>, Array<T>, T> operator-(Left a, Array<T> b)
 {
 	return Expr<Left, Minus<T>, Array<T>, T>(a, b);
 }
+
+template<typename Left, typename Right> Expr<Left, Minus<double>, Right, double> operator-(Left a, Right b){
+	return Expr<Left, Minus<double>, Right, double>(a, b);
+};
 
 template <typename Left, typename T> Expr<Scalar<T>, Multiply<T>, Array<T>, T> operator*(Left a, Array<T> b)
 {
